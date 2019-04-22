@@ -179,13 +179,21 @@ def logchk():
             else:
                 return render_template('login.html')
 
-@app.route('/prescri')
-def prescrip():
+@app.route('/pat')
+def pat():
+    conn = MySQLdb.connect(user="root", passwd="rishi26071997", db="rishi")
+    cur = conn.cursor()
+    cur.execute("select userid from Patient;")
+    row = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
     #in this we will go to prescription page where doctor will assign some instruction for patient
-    return render_template('prescription.html')
+    return render_template('patient.html',data=row)
 
 @app.route('/assignpres')
 def assignpres():
+
     #here prescription will got submitted and we will return to home page
     return render_template('index.html')
 
@@ -268,4 +276,4 @@ def curvital():
             
 if __name__ == '__main__':
     app.secret_key = 'some secret key'
-    app.run(host = "localhost" , port= 5000)
+    app.run(host = "localhost" , port= 5000 ,threaded=True)
