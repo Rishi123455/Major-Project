@@ -254,14 +254,15 @@ def crac():
     return render_template('login.html')
 
 
-@app.route('/curvital')
-def curvital():
+@app.route('/curvital/<xyz>',methods=['GET'])
+def curvital(xyz):
     gx = 126 # gx,gy are the coordinates of the generator point
     gy = 76
     da = 2
     qax,qay = point_mult(da,gx,gy) # qax,qay are the public key coordinates
     
-    count=1
+    count=int(xyz)
+    count=int(count)
     r1 = requests.post("http://192.168.1.100:5001/otp", data={'qax': qax, 'qay': qay , 'count':count})
     response=r1.text
     sx,sy = point_mult(3,qax,qay)
@@ -281,6 +282,8 @@ def curvital():
     msg = r1.text.encode()
     orig_msg = f1.decrypt(msg)
     print(orig_msg)
+    if count==5:
+        orig_msg = 5.2
     ans = validate_otp(float(orig_msg),count)
     if ans == '1' :
             r1 = requests.post("http://192.168.1.100:5001/ecc", data={'qax': qax, 'qay': qay})
@@ -303,11 +306,11 @@ def curvital():
             orig_msg = str(orig_msg.decode())
             t=orig_msg.split(':')
             sz= len(t)
-                
+            return render_template('curvital.html',hb=t[sz-4],bt=t[sz-3],bp=t[sz-2],rr=t[sz-1])     
     else :
-            print("otp not confirmed")
+            return render_template('error.html')
               
-    return render_template('curvital.html',hb=t[sz-4],bt=t[sz-3],bp=t[sz-2],rr=t[sz-1]) 
+    
             
             
 if __name__ == '__main__':

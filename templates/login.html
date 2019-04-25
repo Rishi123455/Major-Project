@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" type="image" href="{{ url_for('static',filename='img/favicon.img') }}" type="image/png">
-	<title>Hospice Medical</title>
+	<title>WeCare</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.css') }}" >
 	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/vendors/linericon/style.css') }}" >	
@@ -100,11 +100,11 @@
 					<div class="appointment-right">
 						<form class="form-wrap" action="http://127.0.0.1:5000/logchk" method="post">
 							<h3 class="pb-20 text-center mb-20">LOGIN</h3>
-							<input type="text" class="form-control" name="um" id="um" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"><br>
-							<input type="Password" class="form-control" name="pass" id="pass"  placeholder="Password " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							<input type="text" required class="form-control" name="um" id="um" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"><br>
+							<input type="Password" required class="form-control" name="pass" id="pass"  placeholder="Password " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 							<br>
-							<input type="radio"  name="user" id="user" value="patient">Patient &nbsp &nbsp &nbsp
-							<input type="radio"  name="user" id="user" value="doc">Doctor
+							<input type="radio" required name="user" id="user" value="patient">Patient &nbsp &nbsp &nbsp
+							<input type="radio" required name="user" id="user" value="doc">Doctor
 							
 							
 							<div class="text-center confirm_btn_box">

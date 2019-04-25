@@ -22,6 +22,7 @@
 
 </head>
 
+<body>
 
 
 
@@ -79,9 +80,44 @@
 									<li class="nav-item">
 										<a class="nav-link" href="contact.html">Contact</a>
 									</li>
+									{% if session['logged_in'] == True and session['user'] == "patient" %}
+									<li class="nav-item submenu dropdown">
+										<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
+										<ul class="dropdown-menu">
+											<li class="nav-item">
+												<a class="nav-link" href="http://127.0.0.1:5000/home">Profile</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="http://127.0.0.1:5000/curvital">Current Vitals</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="http://127.0.0.1:5000/mypres">My Prescriptions</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="http://127.0.0.1:5000/logout">Logout</a>
+											</li>
+										</ul>
+									</li>
+									{% elif session['logged_in'] == True and session['user'] == "doc" %}
+									<li class="nav-item submenu dropdown">
+										<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
+										<ul class="dropdown-menu">
+											<li class="nav-item">
+												<a class="nav-link" href="http://127.0.0.1:5000/home">Profile</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="http://127.0.0.1:5000/pat">Patients</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="http://127.0.0.1:5000/logout">Logout</a>
+											</li>
+										</ul>
+									</li>
+									{% else %}
 									<li class="nav-item">
 										<a class="nav-link" href="http://127.0.0.1:5000/login">Login/SignUp</a>
 									</li>
+									{% endif %}
 								</ul>
 							</div>
 						</div>
@@ -97,36 +133,30 @@
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
 				<div class="banner_content row">
-					<div class="col-lg-6 col-md-6 pt-60 pb-60">
-					<div class="appointment-right">
-						<form class="form-wrap" action="http://127.0.0.1:5000/crac" method="post">
-							<h3 class="pb-20 text-center mb-20">Sign Up</h3>
-							<input type="text" class="form-control" name="um" id="um" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"><br>
-							<input type="text" class="form-control" name="nm" id="nm" placeholder="Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'"><br>
-							<input type="text" class="form-control" name="em" id="em" placeholder="E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'E-mail'"><br>
-							<input type="text" class="form-control" name="con" id="con" placeholder="Contact" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact'"><br>
-							<input type="Password" class="form-control" name="pass" id="pass"  placeholder="Password " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-							<br>
-							<div class="text-center confirm_btn_box">
-								<button name="sub" id="sub" class="main_btn text-uppercase">Submit</button><br>
-							</div><br>
-							<div class="text-center confirm_btn_box">
-								<a style="color:green;font-size:20px; " href="http://127.0.0.1:5000/login">Already have an account?</a>
-							</div>
-						</form>
-					</div>
-				</div>
+					<table width=60%  border="1">
+						<tr align="center">
+							<th>Doctor Name</th>
+							<th>Prescription</th>
+						</tr>
+						{% for item in data %}
+						<tr align="center">
+						    <td>{{item[0]}}</td>					    
+						    <td>{{item[1]}}</td>
+						</tr>
+						{% endfor %}
+					</table>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!--================ End Home Banner Area =================-->
 
-	
 
-	
 
-<!--================ start footer Area =================-->
+
+
+
+	<!--================ start footer Area =================-->
 	<footer class="footer-area section_gap">
 		<div class="container">
 			<div class="row">
@@ -167,7 +197,6 @@
 		</div>
 	</footer>
 	<!--================ End footer Area =================-->
-
 
 
 	<!--================ Optional JavaScript =================-->

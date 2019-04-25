@@ -1,6 +1,8 @@
 import base64
 import os
 import random
+import serial
+import time
 import requests
 from flask import Flask,request,session
 from cryptography.hazmat.backends import default_backend
@@ -8,7 +10,8 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 
-
+ard = serial.Serial('COM7',9600)
+time.sleep(2)
 a = 2 #a,b are curve parameters
 b = 3
 def mult(m,n):
@@ -143,7 +146,13 @@ def hello():
     qay = request.form['qay']
     qax = int(qax)
     qay = int(qay)
-    msg = "80:97:120.80:25".encode()
+    ard.write('a'.encode())
+    time.sleep(6)
+    msg = ard.read(ard.inWaiting()) # read all characters in buffer
+    msg = msg.decode()
+    print(msg)
+    msg = (msg+":97:120.80:25")
+    msg = msg.encode()
     r = 3
     rx,ry = point_mult(r,gx,gy)
     sx,sy =  point_mult(r,qax,qay)

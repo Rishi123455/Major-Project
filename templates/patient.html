@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" type="image" href="{{ url_for('static',filename='img/favicon.img') }}" type="image/png">
-	<title>Hospice Medical</title>
+	<title>WeCare</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.css') }}" >
 	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/vendors/linericon/style.css') }}" >	
@@ -132,13 +132,15 @@
 				<div class="banner_content row">
 					<table width=60%  border="1">
 						<tr align="center">
-							<th>Patient Name</td>
-							<th>Action</td>
+							<th>Patient Name</th>
+							<th>Action</th>
+							<th>Suggest</th>
 						</tr>
 						{% for item in data %}
 						<tr>
 						    <td>{{item[0]}}</td>
-						    <td><a class="nav-link" href="http://127.0.0.1:5000/curvital">Check Vitals</a></td>
+						    <td><a class="nav-link" href="http://127.0.0.1:5000/curvital">Check Vitals</a></td>						    
+						    <td><a class="nav-link" href="http://127.0.0.1:5000/pres/{{item[0]}}">Give Prescription</a></td>
 						</tr>
 						{% endfor %}
 					</table>
